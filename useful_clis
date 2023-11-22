@@ -1,0 +1,24 @@
+
+#To start the containers
+docker-compose up -d
+
+#To list the running container
+docker ps
+
+#Get inside the postgres container
+docker exec -it pg_container bash
+
+        #retore the database inside the postgres container
+        psql -h localhost -p 5432 -d hello_db -U hello_user -W < /restore/21_11_23_table_backup_db.sql
+
+        #backup the database inside the postgres container
+        pg_dump -h localhost -p5432 -d hello_db -U hello_user -W > /restore/21_11_23_table_backup_db.sql
+
+        #Connect to db inside the postgres container
+        psql -h localhost -p 5432 -U hello_user -d hello_db
+
+#To stop the containers
+docker-compose down
+
+Finally copy and replace the pg_hba.conf in config folder with the one data folder, restart the docker-compose and customer app.
+
